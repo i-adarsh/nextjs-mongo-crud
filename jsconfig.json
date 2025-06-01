@@ -3,5 +3,6 @@
     "paths": {
       "@/*": ["./*"]
     }
-  }
+  },
+  "jsx": "react-jsx" // Or "preserve" or "react" depending on your setup
 }
