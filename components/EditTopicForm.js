@@ -17,7 +17,7 @@ export default function EditTopicForm({ topicId, title, description }) {
     } else {
       try {
         const res = await fetch(
-          `https://3000-w-adarshkr-m1u5v4bi-gpu.cluster-paq6lai5trel4t5la2vgoxzaba.cloudworkstations.dev/api/topics/${topicId}`,
+          `/api/topics/${topicId}`,
           {
             method: "PUT",
             headers: {

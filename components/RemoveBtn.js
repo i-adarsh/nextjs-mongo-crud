@@ -9,7 +9,7 @@ export default function RemoveBtn({ id }) {
     const confirmed = confirm("Are you sure?");
     if (confirmed) {
       const res = await fetch(
-        `https://3000-w-adarshkr-m1u5v4bi-gpu.cluster-paq6lai5trel4t5la2vgoxzaba.cloudworkstations.dev/api/topics?id=${id}`,
+        `/api/topics?id=${id}`,
         {
           method: "DELETE",
         }

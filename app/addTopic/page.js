@@ -15,16 +15,13 @@ export default function AddTopic() {
       alert("Please enter a title and description");
     } else {
       try {
-        const res = await fetch(
-          "https://3000-w-adarshkr-m1u5v4bi-gpu.cluster-paq6lai5trel4t5la2vgoxzaba.cloudworkstations.dev/api/topics",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ title, description }),
-          }
-        );
+        const res = await fetch("/api/topics", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ title, description }),
+        });
 
         if (res.ok) {
           router.push("/");
