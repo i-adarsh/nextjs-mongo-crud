@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function EditTopicForm({ topicId, title, description }) {
+  console.log("Test: ", topicId, title, description);
   const [newTitle, setNewTitle] = useState(title);
   const [newDescription, setNewDescription] = useState(description);
   const router = useRouter();
@@ -16,7 +17,7 @@ export default function EditTopicForm({ topicId, title, description }) {
     } else {
       try {
         const res = await fetch(
-          `https://localhost:3000/api/topics/${topicId}`,
+          `https://3000-w-adarshkr-m1u5v4bi-gpu.cluster-paq6lai5trel4t5la2vgoxzaba.cloudworkstations.dev/api/topics/${topicId}`,
           {
             method: "PUT",
             headers: {
@@ -26,6 +27,7 @@ export default function EditTopicForm({ topicId, title, description }) {
           }
         );
         if (res.ok) {
+          router.refresh();
           router.push("/");
         } else {
           throw new Error("failed to update topic");
