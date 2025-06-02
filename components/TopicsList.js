@@ -4,7 +4,7 @@ import { HiPencilAlt } from "react-icons/hi";
 
 const getTopics = async () => {
   try {
-    const res = await fetch("/api/topics");
+    const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/topics`, { cache: 'no-store' }); // Use absolute URL
     if (!res.ok) {
       console.error(
         "Failed to fetch topics. Status:",
@@ -16,20 +16,23 @@ const getTopics = async () => {
       console.error("Error body:", errorBody);
       throw new Error(`Failed to fetch topics. Status: ${res.status}`);
     }
-    return res.json(); // This should return the array of topics directly
+    return res.json();
   } catch (error) {
     console.log("Error loading topics: ", error);
-    return []; // Return an empty array in case of any error
+    // It's important to throw the error or return a specific error object
+    // if the component needs to know about the failure.
+    // For now, returning an empty array as before.
+    return []; 
   }
 };
 
 export default async function TopicsList() {
-  const topics = await getTopics(); // topics should now be the array itself, or an empty array on error
+  const topics = await getTopics();
 
-  // Check if topics is an array before trying to map over it
   if (!Array.isArray(topics)) {
     console.error("Topics is not an array:", topics);
-    return <p>Error: Topics could not be loaded correctly.</p>;
+    // It's good to provide feedback to the user if data loading fails
+    return <p>Error: Topics data could not be loaded correctly. Please check the console for more details.</p>;
   }
 
   return (
@@ -45,8 +48,7 @@ export default async function TopicsList() {
               <div>{t.description}</div>
             </div>
             <div className="flex gap-2">
-              <RemoveBtn id={t._id} />{" "}
-              {/* Assuming RemoveBtn takes an id prop */}
+              <RemoveBtn id={t._id} />
               <Link href={`/editTopic/${t._id}`}>
                 <HiPencilAlt size={24} />
               </Link>
@@ -54,7 +56,7 @@ export default async function TopicsList() {
           </div>
         ))
       ) : (
-        <p>No topics found.</p>
+        <p>No topics found. (This could also indicate an error in fetching data if topics were expected)</p>
       )}
     </>
   );

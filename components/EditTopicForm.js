@@ -17,7 +17,7 @@ export default function EditTopicForm({ topicId, title, description }) {
     } else {
       try {
         const res = await fetch(
-          `/api/topics/${topicId}`,
+          `${process.env.NEXT_PUBLIC_APP_URL}/api/topics/${topicId}`,
           {
             method: "PUT",
             headers: {

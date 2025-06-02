@@ -9,15 +9,13 @@ export default function RemoveBtn({ id }) {
     const confirmed = confirm("Are you sure?");
     if (confirmed) {
       const res = await fetch(
-        `/api/topics?id=${id}`,
+        `${process.env.PUBLIC_URL}/api/topics?id=${id}`,
         {
           method: "DELETE",
         }
       );
       if (res.ok) {
         router.refresh();
-      } else {
-        throw new Error("failed to delete topic");
       }
     }
 
