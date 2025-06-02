@@ -15,7 +15,7 @@ export default function AddTopic() {
       alert("Please enter a title and description");
     } else {
       try {
-        const res = await fetch(`${process.env.PUBLIC_URL}/api/topics`, {
+        const res = await fetch("/api/topics", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
